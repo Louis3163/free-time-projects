@@ -26,11 +26,11 @@ public class App {
             for(int e = 0; e < 3; e++){
             KämpferArray[e] = new Kämpfer();
             KämpferArray[e].Name = randomNameGenerator();
-            KämpferArray[e].HP = random.nextInt(3) + 2;
-            KämpferArray[e].Angriffsstärke = random.nextInt(3) + 1;
-            KämpferArray[e].Schnelligkeit = random.nextInt(3) + 1;
-            KämpferArray[e].Schnelligkeit = random.nextInt(3) + 1;
-            KämpferArray[e].Ausdauer = random.nextInt(3) + 1;
+            KämpferArray[e].HP = random.nextInt(2) + 1;
+            KämpferArray[e].Angriffsstärke = random.nextInt(1) + 1;
+            KämpferArray[e].Schnelligkeit = random.nextInt(2) + 1;
+            KämpferArray[e].Schnelligkeit = random.nextInt(2) + 1;
+            KämpferArray[e].Ausdauer = random.nextInt(2) + 1;
         }
         Menü(scanner);
     }
@@ -121,15 +121,15 @@ public class App {
             int Glück = random.nextInt(2) + 1;
             switch(Eingabe){
                 case "1":  if(Glück == 1){
-                                System.out.println("Du hast " + KämpferArray[Kämpfernummer].Name + "getreten!");
-                                KämpferArray[Kämpfernummer].HP =+ Spieler.Angriffsstärke;}
+                                System.out.println("Du hast " + KämpferArray[Kämpfernummer].Name + "getreten!(-" + Spieler.Angriffsstärke + "Gesundheit)");
+                                KämpferArray[Kämpfernummer].HP =- Spieler.Angriffsstärke;}
                                 else{
                                 System.out.println("Du hast versucht " + KämpferArray[Kämpfernummer].Name + "zu treten, aber er konnte ausweichen!");
                                 }
                             break;
                 case "2": if(Glück == 1){
-                                System.out.println("Du hast " + KämpferArray[Kämpfernummer].Name + "geschlagen!");
-                                KämpferArray[Kämpfernummer].HP =+ Spieler.Angriffsstärke;}
+                                System.out.println("Du hast " + KämpferArray[Kämpfernummer].Name + "geschlagen!(-" + Spieler.Angriffsstärke + "Gesundheit)");
+                                KämpferArray[Kämpfernummer].HP =- Spieler.Angriffsstärke;}
                                 else{
                                     System.out.println("Du hast versucht " + KämpferArray[Kämpfernummer].Name + "zu schlagen, aber er konnte ausweichen!");
                                 }
@@ -166,6 +166,7 @@ public class App {
             if(Spieler.HP <= 0 || KämpferArray[Kämpfernummer].HP <= 0){
                 Spielläuft = false;
                 }
+            Zwischenstand(Kämpfernummer);
         }
         if(Spieler.HP <=0){
             System.out.println("Du hast verloren!");
@@ -184,5 +185,8 @@ public class App {
     public static void clearTerminal(){
             System.out.print("\033[H\033[2J");
             System.out.flush();
+    }
+    public static void Zwischenstand( int Kämpfernummer){
+        System.out.println("------Zwischenstand:------\nDeine HP: " + Spieler.HP + "\nGegner HP: " + KämpferArray[Kämpfernummer].HP);
     }
 }
